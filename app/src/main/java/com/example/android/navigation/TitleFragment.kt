@@ -23,6 +23,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [TitleFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+
 class TitleFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -37,6 +38,8 @@ class TitleFragment : Fragment() {
         }
     }
 
+    //no build yet
+    //adding this to commit
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val binding = DataBindingUtil.inflate<FragmentTitleBinding>(inflater,R.layout.fragment_title,container,false)
@@ -49,15 +52,15 @@ class TitleFragment : Fragment() {
         return binding.root
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater?.inflate(R.menu.options_menu, menu)
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return NavigationUI.onNavDestinationSelected(item!!,
                 view!!.findNavController())
                 || super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater?.inflate(R.menu.options_menu, menu)
     }
 
 
