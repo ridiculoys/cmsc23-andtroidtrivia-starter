@@ -17,115 +17,175 @@
 package com.example.android.navigation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.android.navigation.databinding.FragmentGameBinding
+import kotlinx.android.synthetic.main.fragment_name.*
 
 class GameFragment : Fragment() {
-    data class Question(
-            val text: String,
-            val answers: List<String>)
+    //getting the data
+    private val info: Information = Information("sampleName")
 
-    // The first answer is the correct one.  We randomize the answers before showing the text.
-    // All questions must have four answers.  We'd want these to contain references to string
-    // resources so we could internationalize. (Or better yet, don't define the questions in code...)
-    private val questions: MutableList<Question> = mutableListOf(
-            Question(text = "What is Android Jetpack?",
-                    answers = listOf("All of these", "Tools", "Documentation", "Libraries")),
-            Question(text = "What is the base class for layouts?",
-                    answers = listOf("ViewGroup", "ViewSet", "ViewCollection", "ViewRoot")),
-            Question(text = "What layout do you use for complex screens?",
-                    answers = listOf("ConstraintLayout", "GridLayout", "LinearLayout", "FrameLayout")),
-            Question(text = "What do you use to push structured data into a layout?",
-                    answers = listOf("Data binding", "Data pushing", "Set text", "An OnClick method")),
-            Question(text = "What method do you use to inflate layouts in fragments?",
-                    answers = listOf("onCreateView()", "onActivityCreated()", "onCreateLayout()", "onInflateLayout()")),
-            Question(text = "What's the build system for Android?",
-                    answers = listOf("Gradle", "Graddle", "Grodle", "Groyle")),
-            Question(text = "Which class do you use to create a vector drawable?",
-                    answers = listOf("VectorDrawable", "AndroidVectorDrawable", "DrawableVector", "AndroidVector")),
-            Question(text = "Which one of these is an Android navigation component?",
-                    answers = listOf("NavController", "NavCentral", "NavMaster", "NavSwitcher")),
-            Question(text = "Which XML element lets you register an activity with the launcher activity?",
-                    answers = listOf("intent-filter", "app-registry", "launcher-registry", "app-launcher")),
-            Question(text = "What do you use to mark a layout for data binding?",
-                    answers = listOf("<layout>", "<binding>", "<data-binding>", "<dbinding>"))
-    )
+    //declaring binding as a global variable
+    private lateinit var binding: FragmentGameBinding
 
+    //global variable clicks
+    private var clicks = 0
 
-
-    lateinit var currentQuestion: Question
-    lateinit var answers: MutableList<String>
-    private var questionIndex = 0
-    private val numQuestions = Math.min((questions.size + 1) / 2, 3)
+    //where the buttons will be stored
+    private lateinit var clickableViews: List<TextView>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
         // Inflate the layout for this fragment
-        val binding = DataBindingUtil.inflate<FragmentGameBinding>(
+        binding = DataBindingUtil.inflate<FragmentGameBinding>(
                 inflater, R.layout.fragment_game, container, false)
-
-        // Shuffles the questions and sets the question index to the first question.
-        randomizeQuestions()
 
         // Bind this fragment class to the layout
         binding.game = this
+        binding.info = info
 
-        // Set the onClickListener for the submitButton
-        binding.submitButton.setOnClickListener @Suppress("UNUSED_ANONYMOUS_PARAMETER")
-        { view: View ->
-            val checkedId = binding.questionRadioGroup.checkedRadioButtonId
-            // Do nothing if nothing is checked (id == -1)
-            if (-1 != checkedId) {
-                var answerIndex = 0
-                when (checkedId) {
-                    R.id.secondAnswerRadioButton -> answerIndex = 1
-                    R.id.thirdAnswerRadioButton -> answerIndex = 2
-                    R.id.fourthAnswerRadioButton -> answerIndex = 3
-                }
-                // The first answer in the original question is always the correct one, so if our
-                // answer matches, we have the correct answer.
-                if (answers[answerIndex] == currentQuestion.answers[0]) {
-                    questionIndex++
-                    // Advance to the next question
-                    if (questionIndex < numQuestions) {
-                        currentQuestion = questions[questionIndex]
-                        setQuestion()
-                        binding.invalidateAll()
-                    } else {
-                        // We've won!  Navigate to the gameWonFragment.
-                        view.findNavController().navigate(R.id.action_gameFragment_to_gameWonFragment)
-                    }
-                } else {
-                    // Game over! A wrong answer sends us to the gameOverFragment.
-                    view.findNavController().navigate(R.id.action_gameFragment_to_gameOverFragment)
-                }
-            }
-        }
+        info.name = arguments?.getString("userName") ?: binding.invalidateAll().toString()
+
+        //setting the listeners for the elements in this fragment
+        setListeners()
+
         return binding.root
     }
 
-    // randomize the questions and set the first question
-    private fun randomizeQuestions() {
-        questions.shuffle()
-        questionIndex = 0
-        setQuestion()
+    //function for when the player wins
+    private fun playerWin(view: TextView) {
+        val bundle = Bundle()
+        bundle.putString("clicks", clicks.toString())
+        view.findNavController().navigate(R.id.action_gameFragment_to_gameWonFragment, bundle)
     }
 
-    // Sets the question and randomizes the answers.  This only changes the data, not the UI.
-    // Calling invalidateAll on the FragmentGameBinding updates the data.
-    private fun setQuestion() {
-        currentQuestion = questions[questionIndex]
-        // randomize the answers into a copy of the array
-        answers = currentQuestion.answers.toMutableList()
-        // and shuffle them
-        answers.shuffle()
-        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.title_android_trivia_question, questionIndex + 1, numQuestions)
+    //function for when the player wins
+    private fun playerLose(view: TextView) {
+        val bundle = Bundle()
+        bundle.putString("clicks", clicks.toString())
+        view.findNavController().navigate(R.id.action_gameFragment_to_gameOverFragment, bundle)
     }
+
+    //function for clicking a box
+    private fun click(view: TextView) {
+        binding.apply {
+            //updating the clicks
+            clicks += 1
+            clickCounter.text = resources.getString(R.string.click_text) + clicks.toString()
+
+            //minimum clicks to win is 4, so only check when clicks are 4
+            if (clicks >= 4) {
+                var count = 0
+                for (item in clickableViews) {
+                    if (item.text == resources.getString(R.string.off_text)) {
+                        count += 1
+                    }
+                }
+
+                if (count == 16 && clicks <= 5) {
+                    Log.d("Clicks: ", clicks.toString())
+                    Log.d("WIN: ", clicks.toString())
+                    playerWin(view)
+                } else if (clicks > 5) {
+                    Log.d("LOSE: ", clicks.toString())
+                    playerLose(view)
+                }
+            }
+        }
+    }
+
+    private fun switchChecker(view: TextView) {
+        //if the view is currently on, turn off
+        if (view.text.toString() == resources.getString(R.string.on_text)) {
+            view.setBackgroundResource(R.color.offColor)
+            view.text = resources.getString(R.string.off_text)
+            view.setTextColor(resources.getColor(R.color.offColor))
+        } else { //else, turn on
+            view.setBackgroundResource(R.color.onColor)
+            view.text = resources.getString(R.string.on_text)
+            view.setTextColor(resources.getColor(R.color.onColor))
+        }
+    }
+
+    //function for setting the listeners
+    private fun setListeners() {
+        binding.apply {
+            clickableViews =
+                    listOf(
+                            box1, box2, box3, box4, box5,
+                            box6, box7, box8, box9, box10,
+                            box11, box12, box13, box14, box15,
+                            box16, retryButton
+                    )
+
+            for (i in 0 until clickableViews.count()) {
+                if (clickableViews[i] != retryButton) {
+                    clickableViews[i].setOnClickListener {
+                        switchChecker(clickableViews[i])
+
+                        //if i is not 0,1,2,3, it has a tile above it
+                        if (i !in intArrayOf(0, 1, 2, 3)) {
+                            switchChecker(clickableViews[i - 4])
+                        }
+
+                        //if i is not 0,4,8,12, it has a tile to the left of it
+                        if (i !in intArrayOf(0, 4, 8, 12)) {
+                            switchChecker(clickableViews[i - 1])
+                        }
+
+                        //if i is not 3,7,11,15, it has a tile to the right of it
+                        if (i !in intArrayOf(3, 7, 11, 15)) {
+                            switchChecker(clickableViews[i + 1])
+                        }
+
+                        //if i is not 12,13,14,15, it has a tile below it
+                        if (i !in intArrayOf(12, 13, 14, 15)) {
+                            switchChecker(clickableViews[i + 4])
+                        }
+
+                        click(clickableViews[i])
+                    }
+                } else {
+                    clickableViews[i].setOnClickListener {
+                        retry()
+                    }
+                }
+            }
+        }
+    }
+
+    //function for retrying, catches both retry during game and when player wins
+    private fun retry() {
+        binding.apply {
+
+            for (item in clickableViews) {
+                if (item != retryButton) {
+                    //changing background color back to yellow
+                    item.setBackgroundResource(R.color.onColor)
+
+                    //changing text color of the checker (only the programmer will see this)
+                    item.setTextColor(resources.getColor(R.color.onColor))
+
+                    //changing the text (only the programmer will see this)
+                    item.text = resources.getString(R.string.on_text)
+                }
+            }
+
+            //updating number of clicks
+            clickCounter.text = resources.getString(R.string.clicks_text)
+            clicks = 0
+        }
+    }
+
+
 }

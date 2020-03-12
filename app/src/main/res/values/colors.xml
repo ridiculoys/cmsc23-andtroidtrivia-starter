@@ -18,8 +18,11 @@
 <resources>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#7e53c5</color>
+    <color name="colorAccent">#F9ED2A</color>
     <color name="youWinDark">#35A571</color>
-    <color name="youWinBackground">#B7F8C9</color>
-    <color name="gameOverBackground">#f8bbd0</color>
+    <color name="youWinBackground">#98E5A8</color>
+    <color name="gameOverBackground">#F9E1E0</color>
+    <color name="button_text">#3C3737</color>
+    <color name="onColor">#f9e55b</color>
+    <color name="offColor">#1a1a1a</color>
 </resources>

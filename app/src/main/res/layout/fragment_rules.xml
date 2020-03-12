@@ -28,15 +28,15 @@
 
         <ImageView
             android:id="@+id/rulesImage"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/image_header_height"
+            android:layout_width="365dp"
+            android:layout_height="197dp"
             android:layout_marginStart="@dimen/horizontal_margin"
-            android:layout_marginTop="@dimen/vertical_margin"
             android:layout_marginEnd="@dimen/horizontal_margin"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/trivia_rules" />
+            app:srcCompat="@drawable/lights_rules" />
 
         <TextView
             android:id="@+id/rulesText"
@@ -45,7 +45,9 @@
             android:layout_marginStart="@dimen/horizontal_margin"
             android:layout_marginTop="@dimen/vertical_margin"
             android:layout_marginEnd="@dimen/horizontal_margin"
+            android:padding="@dimen/text_padding"
             android:text="@string/rules_text"
+            android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

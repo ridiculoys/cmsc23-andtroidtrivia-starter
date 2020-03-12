@@ -23,4 +23,16 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
+    <style name="whiteBox">
+        <item name="android:background">@android:color/holo_green_light</item>
+    </style>
+
+    <style name="box_style">
+        <item name="android:textColor">#f9e55b</item>
+        <item name="android:text">@string/on_text</item>
+        <item name="android:layout_width">@dimen/box_size</item>
+        <item name="android:layout_height">@dimen/box_size</item>
+        <item name="android:background">#f9e55b</item>
+    </style>
 </resources>

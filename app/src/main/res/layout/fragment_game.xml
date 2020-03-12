@@ -20,118 +20,223 @@
     tools:context="com.example.android.navigation.InGame">
 
     <data>
-
         <variable
             name="game"
             type="com.example.android.navigation.GameFragment" />
+
+        <variable
+            name = "info"
+            type ="com.example.android.navigation.Information" />
     </data>
 
-    <ScrollView
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/frameLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/frameLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/user_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="@={info.name}"
+            android:textColor="@color/button_text"
+            android:textSize="@dimen/font_main_text"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="sample name" />
 
-            <ImageView
-                android:id="@+id/questionImage"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/image_header_height"
-                android:layout_marginStart="@dimen/horizontal_margin"
-                android:layout_marginTop="@dimen/vertical_margin"
-                android:layout_marginEnd="@dimen/horizontal_margin"
-                android:layout_marginBottom="@dimen/vertical_margin"
-                android:scaleType="fitCenter"
-                app:layout_constraintBottom_toTopOf="@+id/questionText"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_chainStyle="packed"
-                app:srcCompat="@drawable/android_category_simple" />
+        <TextView
+            android:id="@+id/box_1"
+            style="@style/box_style"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/box_3"
+            app:layout_constraintEnd_toStartOf="@+id/box_2"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
 
-            <TextView
-                android:id="@+id/questionText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/question_horizontal_margin"
-                android:layout_marginTop="@dimen/vertical_margin"
-                android:layout_marginEnd="@dimen/question_horizontal_margin"
-                android:layout_marginBottom="@dimen/vertical_margin"
-                android:fontFamily="sans-serif"
-                android:text="@{game.currentQuestion.text}"
-                android:textSize="@dimen/question_text_size"
-                android:textStyle="bold"
-                android:typeface="normal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/questionImage"
-                tools:text="What color is the Android mascot?" />
+        <TextView
+            android:id="@+id/box_2"
+            style="@style/box_style"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/box_3"
+            app:layout_constraintEnd_toStartOf="@+id/box_3"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/box_1" />
 
-            <RadioGroup
-                android:id="@+id/questionRadioGroup"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/question_horizontal_margin"
-                android:layout_marginTop="@dimen/vertical_margin"
-                android:layout_marginEnd="@dimen/question_horizontal_margin"
-                android:animateLayoutChanges="true"
-                android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/questionText">
+        <TextView
+            android:id="@+id/box_3"
+            style="@style/box_style"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/box_4"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/box_2"
+            app:layout_constraintTop_toBottomOf="@+id/user_text" />
 
-                <RadioButton
-                    android:id="@+id/firstAnswerRadioButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/question_vertical_margin"
-                    android:checked="true"
-                    android:text="@{game.answers[0]}"
-                    android:textSize="@dimen/answer_text_size"
-                    tools:text="Blue" />
+        <TextView
+            android:id="@+id/box_4"
+            style="@style/box_style"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/box_3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/box_3" />
 
-                <RadioButton
-                    android:id="@+id/secondAnswerRadioButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/question_vertical_margin"
-                    android:text="@{game.answers[1]}"
-                    android:textSize="@dimen/answer_text_size"
-                    tools:text="Green" />
+        <TextView
+            android:id="@+id/box_5"
+            style="@style/box_style"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/box_7"
+            app:layout_constraintEnd_toStartOf="@+id/box_6"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
 
-                <RadioButton
-                    android:id="@+id/thirdAnswerRadioButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/question_vertical_margin"
-                    android:text="@{game.answers[2]}"
-                    android:textSize="@dimen/answer_text_size"
-                    tools:text="Yellow" />
+        <TextView
+            android:id="@+id/box_6"
+            style="@style/box_style"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/box_7"
+            app:layout_constraintEnd_toStartOf="@+id/box_7"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/box_5" />
 
-                <RadioButton
-                    android:id="@+id/fourthAnswerRadioButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@{game.answers[3]}"
-                    android:textSize="@dimen/answer_text_size"
-                    tools:text="Red" />
-            </RadioGroup>
+        <TextView
+            android:id="@+id/box_7"
+            style="@style/box_style"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/box_8"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/box_6"
+            app:layout_constraintTop_toBottomOf="@+id/box_3" />
 
-            <Button
-                android:id="@+id/submitButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/question_horizontal_margin"
-                android:layout_marginTop="@dimen/vertical_margin"
-                android:layout_marginEnd="@dimen/question_horizontal_margin"
-                android:text="@string/submit_button"
-                android:textSize="@dimen/button_text_size"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/questionRadioGroup" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+        <TextView
+            android:id="@+id/box_8"
+            style="@style/box_style"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/box_7"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/box_7" />
+
+        <TextView
+            android:id="@+id/box_9"
+            style="@style/box_style"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/box_11"
+            app:layout_constraintEnd_toStartOf="@+id/box_10"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/box_10"
+            style="@style/box_style"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/box_11"
+            app:layout_constraintEnd_toStartOf="@+id/box_11"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/box_9" />
+
+        <TextView
+            android:id="@+id/box_11"
+            style="@style/box_style"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/box_12"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/box_10"
+            app:layout_constraintTop_toBottomOf="@+id/box_7" />
+
+        <TextView
+            android:id="@+id/box_12"
+            style="@style/box_style"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/box_11"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/box_11" />
+
+        <TextView
+            android:id="@+id/box_13"
+            style="@style/box_style"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/box_15"
+            app:layout_constraintEnd_toStartOf="@+id/box_14"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/box_14"
+            style="@style/box_style"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/box_15"
+            app:layout_constraintEnd_toStartOf="@+id/box_15"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/box_13" />
+
+        <TextView
+            android:id="@+id/box_15"
+            style="@style/box_style"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/box_16"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/box_14"
+            app:layout_constraintTop_toBottomOf="@+id/box_11" />
+
+        <TextView
+            android:id="@+id/box_16"
+            style="@style/box_style"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/box_15"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/box_15" />
+
+        <Button
+            android:id="@+id/retry_button"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/retry_text"
+            android:textColor="@color/button_text"
+            app:fontFamily="@font/raleway_semibold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/box_15" />
+
+        <TextView
+            android:id="@+id/click_counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="70dp"
+
+            android:text="@string/clicks_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/retry_button" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

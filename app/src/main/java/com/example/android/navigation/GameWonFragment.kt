@@ -17,6 +17,7 @@
 package com.example.android.navigation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,15 +28,31 @@ import com.example.android.navigation.databinding.FragmentGameWonBinding
 
 
 class GameWonFragment : Fragment() {
+
+    //getting the data
+    private val info: Information = Information("sampleName")
+
+    //declaring binding as a global variable
+    private lateinit var binding: FragmentGameWonBinding
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val binding: FragmentGameWonBinding = DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_game_won, container, false)
 
+        info.counter = arguments?.getString("clicks") ?: binding.invalidateAll().toString()
+        setScore()
+
         binding.nextMatchButton.setOnClickListener{view: View ->
-            view.findNavController().navigate(R.id.action_gameWonFragment_to_gameFragment)}
+            view.findNavController().navigate(R.id.action_gameWonFragment_to_titleFragment)}
 
         return binding.root
     }
+
+    private fun setScore() {
+        binding.congratsMsg.text = resources.getString(R.string.congrats_start) + " " + info.counter + " " + resources.getString(R.string.congrats_end)
+    }
+
+
 }

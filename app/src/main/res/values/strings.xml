@@ -15,26 +15,50 @@
   -->
 
 <resources>
-    <string name="app_name">Android Trivia</string>
-    <string name="game_over">Game Over</string>
+    <string name="app_name">talip_exer5_LightsOut</string>
+    <string name="lights_out_text">LIGHTS OUT!</string>
     <string name="try_again">Try Again?</string>
     <string name="position">Position</string>
-    <string name="select_an_avatar">Select an Avatar</string>
-    <string name="android_trivia">Android Trivia</string>
-    <string name="about_text">Android Trivia will help remind you of important concepts you have learned and will learn in Android development.\n\nConsider modifying the questions and graphics to make this game your own!</string>
-    <string name="rules_text">Select the answer from the options given. Each time you get an answer correct, you advance to the next question.\n\nIf you get the answer wrong, your game ends! You can return to the title screen using up or back from within the game screen, and this will also end your game.</string>
+    <string name="about_text">
+        Lights Out is a puzzle game that consists of a 4 by 4 grid of lights.
+        When the game starts, all lights are switched on.
+        Pressing any of the lights will toggle it and the four adjacent lights.
+        The goal of the puzzle is to switch all the lights off with 5 or less clicks.
+        Otherwise, it\'s game over.\n\n
+
+        The author of this game is Louise Gabrielle Talip, a 19-year old BS Computer Science student
+        of the University of the Philippines Los Baños. This is the fifth exercise to be submitted
+        for the CMSC 23 Mobile Computing course where the students have to use Fragments and Data Binding
+        in their Android app.
+    </string>
+    <string name="rules_text">
+        The goal of the game is to "turn off" all the lights in the grid.
+        To turn off a light, a player must click on the square tile.
+        However, once clicked, the 4 adjacent tiles next to it (ABOVE, BELOW, LEFT, and RIGHT)
+        will also be toggled off if it is not already off.\n\n
+        When a light that has already been turned off is clicked, it will turn on again. It will also
+        toggle the 4 adjacent tiles next to it. If the adjacent light is currently off, it will turn on.
+        If it is currently on, it will turn off.\n\n
+        In order to win the game, the player must find a way to turn off all lights with only 5 clicks or less.\n\n\n
+        Happy clicking!
+    </string>
     <string name="rules">Rules</string>
     <string name="about">About</string>
-    <string name="trivia_hint">Trivia Hint</string>
-    <string name="title_android_trivia_question">Android Trivia (%1$d/%2$d)</string>
-    <string name="title_about_trivia">About Trivia</string>
-    <string name="title_trivia_rules">Trivia Rules</string>
-    <string name="share_success_text">I mastered #UdacityAndroidTrivia with %1$d/%2$d correct questions!</string>
     <string name="submit_button">Submit</string>
-    <string name="congratulations">Congratulations!</string>
+    <string name="congratulations">CONGRATULATIONS</string>
+    <string name="game_over">GAME OVER</string>
     <string name="share">Share</string>
-    <string name="sharing_not_available">Sharing Not Available</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="play_text">PLAY</string>
+    <string name="next_match_text">NEXT MATCH</string>
+    <string name="bulb_text">Image of the bulb</string>
+    <string name="name_hint">Enter name</string>
+    <string name="retry_text">RETRY</string>
+    <string name="clicks_text">Clicks: 0</string>
+    <string name="on_text">1</string>
+    <string name="off_text">0</string>
+    <string name="player_text"><b>Player: </b></string>
+    <string name="click_text">Clicks: </string>
+    <string name="gameover_sorry">Sorry, better luck next time!\n You weren\'t able to turn off all the lights in 5 clicks.</string>
+    <string name="congrats_start">You successfully completed the puzzle in</string>
+    <string name="congrats_end">clicks.</string>
 </resources>
