@@ -12,7 +12,8 @@
         tools:layout="@layout/fragment_title">
         <action
             android:id="@+id/action_titleFragment_to_nameFragment"
-            app:destination="@id/nameFragment" />
+            app:destination="@id/nameFragment"
+            app:popUpTo="@+id/titleFragment" />
     </fragment>
 
     <fragment
@@ -23,6 +24,7 @@
         <action
             android:id="@+id/action_nameFragment_to_gameFragment"
             app:destination="@id/gameFragment"
+            app:popUpTo="@+id/titleFragment"
             app:popUpToInclusive="false" />
     </fragment>
 
@@ -34,13 +36,13 @@
         <action
             android:id="@+id/action_gameFragment_to_gameOverFragment"
             app:destination="@id/gameOverFragment"
-            app:popUpTo="@+id/nameFragment"
-            app:popUpToInclusive="true" />
+            app:popUpTo="@+id/titleFragment"
+            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_gameFragment_to_gameWonFragment"
             app:destination="@+id/gameWonFragment"
-            app:popUpTo="@+id/nameFragment"
-            app:popUpToInclusive="true" />
+            app:popUpTo="@+id/titleFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/gameOverFragment"
@@ -63,8 +65,13 @@
             app:popUpTo="@+id/titleFragment" />
     </fragment>
     <fragment
-        android:id="@+id/aboutFragment2"
+        android:id="@+id/aboutFragment"
         android:name="com.example.android.navigation.AboutFragment"
         android:label="fragment_about"
         tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/rulesFragment"
+        android:name="com.example.android.navigation.RulesFragment"
+        android:label="fragment_rules"
+        tools:layout="@layout/fragment_rules" />
 </navigation>
